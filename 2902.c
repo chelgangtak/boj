@@ -1,0 +1,11 @@
+#include <stdio.h>
+
+int main(void) {
+	char str[101];
+	scanf("%s", str);
+	for (int i=0; str[i]!='\0'; i++) {
+		if (i==0 || ((i>0) && str[i-1]=='-')) printf("%c", str[i]);
+	}
+	printf("\n");
+	return 0;
+}
