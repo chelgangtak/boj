@@ -1,70 +1,34 @@
 #include <stdio.h>
-
 int a[999][999];
-
 int main(void) {
-	int N, num, row, col, d, cnt=1, r, c;
+	int d[4][2]={{-1,0},{0,1},{1,0},{0,-1}}, cnt=1, k=1, dir=0, r=0, c=0, N, n, row, col;
 	scanf("%d", &N);
-	scanf("%d", &num);
+	scanf("%d", &n);
 	row=N/2;
 	col=N/2;
-	a[row][col]=cnt;
-	if (cnt==num) {
-		r=row;
-		c=col;
-	}
-	cnt++;
-	for (int a=1; a<=N-1; a++) {
-		if (a%2==1) {
-			for (int i=1; i<=a; i++) {
-				row--;
-				a[row][col]=cnt;
-				if (cnt==num) {
+	a[row][col]=cnt++;
+	while(cnt<=N*N) {
+		for (int j=1; j<=2; j++) {
+			for (int i=1; i<=k; i++) {
+				row=row+d[dir][0];
+				col=col+d[dir][1];
+				if (cnt==n) {
 					r=row;
 					c=col;
 				}
-				cnt++;
-			}
-			for (int i=1; i<=a; i++) {
-				col++;
-				a[row][col]=cnt;
-				if (cnt==num) {
-					r=row;
-					c=col;
-				}
-				cnt++;
-			}
+				a[row][col]=cnt++;
+				if (cnt>N*N) break;
+			}		
+			if (cnt>N*N) break;
+			dir=(dir+1)%4;
 		}
-		else {
-			for (int i=1; i<=a; i++) {
-				row++;
-				a[row][col]=cnt;
-				if (cnt==num) {
-					r=row;
-					c=col;
-				}
-				cnt++;
-			}
-			for (int i=1; i<=a; i++) {
-				col--;
-				a[row][col]=cnt;
-				if (cnt==num) {
-					r=row;
-					c=col;
-				}
-				cnt++;
-			}
-		}
+		if (cnt>N*N) break;
+		k++;
 	}
-	for (int i=1; i<=N-1; i++) {
-		row--;
-		a[row][col]=cnt;
-		if (cnt==num) {
-			r=row;
-			c=col;
-		}
-		cnt++;
+	for (int i=0; i<N; i++) {
+		for (int j=0; j<N; j++) printf("%d ", a[i][j]);
+		printf("\n");
 	}
-	printf("%d %d\n", r, c);
+	printf("%d %d\n", r+1, c+1);
 	return 0;
 }
